@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      DB_USER: agrouser
+      DB_PASS: agropass123
+      DB_NAME: agroculture
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: agroculture
+      MYSQL_USER: agrouser
+      MYSQL_PASSWORD: agropass123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./agroculture.sql:/docker-entrypoint-initdb.d/agroculture.sql
+
+volumes:
+  mysql_data:
