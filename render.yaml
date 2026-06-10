@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: agro-culture
+    runtime: docker
+    plan: starter
+    region: oregon
+
+    # Environment variables for your database
+    envVars:
+      - key: DB_HOST
+        scope: runtime
+        value: ${DB_HOST}
+      - key: DB_USER
+        scope: runtime
+        value: ${DB_USER}
+      - key: DB_PASS
+        scope: runtime
+        value: ${DB_PASS}
+        isPrivate: true
+      - key: DB_NAME
+        scope: runtime
+        value: ${DB_NAME}
+
+    healthCheckPath: /
+
+    # Auto-deploy from GitHub
+    repo: # Add your GitHub repo URL here after pushing
